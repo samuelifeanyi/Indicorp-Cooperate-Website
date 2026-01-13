@@ -351,6 +351,14 @@
             }
         });
 
+        // FORCE SCROLL TO TOP ON LOAD
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        };
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
         // FAQ Accordion Logic
         function toggleFaq(element) {
             const isActive = element.classList.contains('active');
