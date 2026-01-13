@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indicorp | Strategic Corporate Solutions</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brandNavy: '#252B42',
+                        brandTeal: '#00A8C5',
+                        brandOrange: '#FFA62B',
+                        brandGray: '#737373',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Theme Prevention Script -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .glass-nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        * { transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease; }
+        
+        /* FAQ Accordion Logic */
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .faq-item.active .faq-content { max-height: 300px; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+    </style>
+</head>
+
+<body class="bg-[#FAFAFA] dark:bg-gray-950 text-brandNavy dark:text-gray-100 antialiased">
+
+    <!-- 1. NAVIGATION -->
+    <nav class="fixed top-0 w-full z-[100] glass-nav border-b border-gray-100 dark:border-gray-800 bg-white/90 dark:bg-gray-900/90 py-5 transition-all duration-300" id="main-nav">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
+            <div class="text-2xl font-black tracking-tighter dark:text-white uppercase italic">Indicorp<span class="text-brandOrange not-italic">.</span></div>
+            
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex space-x-6 font-bold text-[10px] text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase">
+                <li><a href="#" class="hover:text-brandOrange transition-colors">Home</a></li>
+                <li><a href="#services" class="hover:text-brandOrange transition-colors">Services</a></li>
+                <li><a href="#advice" class="hover:text-brandOrange transition-colors">Advice</a></li>
+                <li><a href="#pricing" class="hover:text-brandOrange transition-colors">Pricing</a></li>
+                <li><a href="#blog" class="hover:text-brandOrange transition-colors">News</a></li>
+                <li><a href="#contact" class="hover:text-brandOrange transition-colors">Contact</a></li>
+            </ul>
+
+            <div class="flex items-center space-x-4">
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" /></svg>
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                </button>
+                <button id="menu-btn" class="md:hidden p-2 dark:text-white">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 p-8 shadow-2xl flex flex-col space-y-6 text-center font-bold text-gray-500 uppercase">
+            <a href="#">Home</a><a href="#services">Services</a><a href="#advice">Advice</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- 2. HERO SECTION -->
+    <section class="relative pt-40 pb-20 lg:pt-64 lg:pb-64 bg-white dark:bg-gray-950 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="z-10">
+                <span class="text-brandTeal font-black tracking-widest uppercase text-xs mb-4 block">Trusted by Fortune 500</span>
+                <h1 class="text-5xl lg:text-8xl font-black mb-8 uppercase dark:text-white leading-[0.95] tracking-tighter">
+                    EMPOWER <br> <span class="text-brandTeal">YOUR BUSINESS</span>
+                </h1>
+                <p class="text-xl text-brandGray dark:text-gray-400 mb-12 max-w-md leading-relaxed">
+                    High-level consulting and deep technical expertise designed to transform corporate potential into market dominance.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="px-10 py-5 bg-brandOrange text-white font-extrabold rounded-full shadow-2xl hover:bg-orange-500 transition-all text-center uppercase tracking-widest text-[10px]">Start Journey</a>
+                    <a href="#services" class="px-10 py-5 border-2 border-brandTeal text-brandTeal font-extrabold rounded-full hover:bg-brandTeal hover:text-white transition-all text-center uppercase tracking-widest text-[10px]">Our Solutions</a>
+                </div>
+            </div>
+            <div class="hidden lg:block relative">
+                <div class="absolute -top-20 -right-20 w-96 h-96 bg-brandTeal/20 rounded-full blur-3xl"></div>
+                <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=1000" class="relative z-10 rounded-[3rem] shadow-2xl rotate-2 grayscale hover:grayscale-0 transition duration-700 dark:opacity-70">
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SERVICES (Overlap Cards) -->
+    <section id="services" class="relative z-20 px-6 max-w-7xl mx-auto -mt-24">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white dark:bg-gray-900 p-12 shadow-2xl rounded-3xl border-b-8 border-brandTeal hover:-translate-y-4 transition-transform">
+                <div class="text-brandTeal mb-8 bg-brandTeal/10 w-16 h-16 flex items-center justify-center rounded-2xl"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+                <h3 class="text-2xl font-black mb-4 dark:text-white uppercase tracking-tight">Market Analysis</h3>
+                <p class="text-brandGray dark:text-gray-400 leading-relaxed">Deep data insights to understand industrial shifts before they happen.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-900 p-12 shadow-2xl rounded-3xl border-b-8 border-brandOrange hover:-translate-y-4 transition-transform">
+                <div class="text-brandOrange mb-8 bg-brandOrange/10 w-16 h-16 flex items-center justify-center rounded-2xl"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2" /></svg></div>
+                <h3 class="text-2xl font-black mb-4 dark:text-white uppercase tracking-tight">Scale-Up Strategy</h3>
+                <p class="text-brandGray dark:text-gray-400 leading-relaxed">Optimizing capital and operational overhead for global scalability.</p>
+            </div>
+            <div class="bg-brandNavy dark:bg-brandTeal p-12 shadow-2xl rounded-3xl text-white hover:-translate-y-4 transition-transform">
+                <div class="mb-8 bg-white/10 w-16 h-16 flex items-center justify-center rounded-2xl"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" /></svg></div>
+                <h3 class="text-2xl font-black mb-4 uppercase tracking-tight">Asset Risk</h3>
+                <p class="opacity-80 leading-relaxed">Protecting corporate identity and resources in a shifting landscape.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. STATS SECTION -->
+    <section class="py-32 bg-white dark:bg-gray-950">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+            <div><div class="text-6xl font-black mb-2 dark:text-white uppercase">3K</div><div class="text-[10px] font-black text-brandGray uppercase tracking-widest">Cases Done</div></div>
+            <div><div class="text-6xl font-black mb-2 dark:text-white uppercase">45</div><div class="text-[10px] font-black text-brandGray uppercase tracking-widest">Local Partners</div></div>
+            <div><div class="text-6xl font-black mb-2 dark:text-white uppercase">12+</div><div class="text-[10px] font-black text-brandGray uppercase tracking-widest">Awards Won</div></div>
+            <div><div class="text-6xl font-black mb-2 dark:text-white uppercase">99%</div><div class="text-[10px] font-black text-brandGray uppercase tracking-widest">Success Rate</div></div>
+        </div>
+    </section>
+
+    <!-- 5. PRACTICE ADVICE GRID -->
+    <section id="advice" class="py-32 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black mb-4 dark:text-white uppercase tracking-tighter italic">Advice Center</h2>
+                <p class="text-brandGray dark:text-gray-400 max-w-lg mx-auto">Providing structure for global firms to resolve internal conflicts.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white dark:bg-gray-800 flex flex-col group overflow-hidden shadow-sm rounded-2xl">
+                    <div class="p-8 pb-10 flex-grow">
+                        <h3 class="text-lg font-bold mb-4 dark:text-white uppercase">Source of Truth</h3>
+                        <p class="text-brandGray dark:text-gray-400 text-sm">Unified corporate vision through data centralization.</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80" class="h-48 w-full object-cover transition duration-500 group-hover:scale-110">
+                </div>
+                <div class="bg-white dark:bg-gray-800 flex flex-col group overflow-hidden shadow-sm rounded-2xl">
+                    <div class="p-8 pb-10 flex-grow"><h3 class="text-lg font-bold mb-4 dark:text-white uppercase">Organization</h3><p class="text-brandGray dark:text-gray-400 text-sm">Agile management for modern high-growth teams.</p></div>
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80" class="h-48 w-full object-cover transition duration-500 group-hover:scale-110">
+                </div>
+                <div class="bg-white dark:bg-gray-800 flex flex-col group overflow-hidden shadow-sm rounded-2xl">
+                    <div class="p-8 pb-10 flex-grow"><h3 class="text-lg font-bold mb-4 dark:text-white uppercase">Protocol</h3><p class="text-brandGray dark:text-gray-400 text-sm">Moving bodies through corporate market space efficiently.</p></div>
+                    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=400&q=80" class="h-48 w-full object-cover transition duration-500 group-hover:scale-110">
+                </div>
+                <div class="bg-white dark:bg-gray-800 flex flex-col group overflow-hidden shadow-sm rounded-2xl">
+                    <div class="p-8 pb-10 flex-grow"><h3 class="text-lg font-bold mb-4 dark:text-white uppercase">Better Work</h3><p class="text-brandGray dark:text-gray-400 text-sm">Improving output across global decentralized divisions.</p></div>
+                    <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=400&q=80" class="h-48 w-full object-cover transition duration-500 group-hover:scale-110">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. VIDEO MEDIA SECTION -->
+    <section class="py-32 bg-white dark:bg-gray-950 border-y dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+            <div class="relative group cursor-pointer overflow-hidden rounded-[2rem] shadow-2xl border-4 border-brandTeal" id="video-trigger">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200" class="w-full aspect-video object-cover transition duration-700 group-hover:scale-105 brightness-75 group-hover:brightness-100">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-24 h-24 bg-brandTeal rounded-full flex items-center justify-center text-white shadow-2xl group-hover:scale-110 transition-transform">
+                        <svg class="w-10 h-10 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-8 text-center lg:text-left">
+                <span class="text-brandOrange font-black tracking-widest uppercase text-xs">Video Experience</span>
+                <h2 class="text-5xl font-black dark:text-white tracking-tighter leading-none italic uppercase">TRUSTED <br> WORLDWIDE</h2>
+                <p class="text-brandGray dark:text-gray-400 text-lg leading-relaxed">Indicorp provides the framework for top 50 firms to resolve internal conflicts and optimize results across borders.</p>
+                <button class="px-12 py-5 bg-brandNavy dark:bg-brandTeal text-white font-black rounded-full uppercase text-[10px] tracking-widest shadow-xl">Contact Our HQ</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. MEET THE TEAM -->
+    <section id="team" class="py-32 bg-[#FAFAFA] dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl font-black mb-4 dark:text-white uppercase tracking-tighter">Strategic Minds</h2>
+                <p class="text-brandGray dark:text-gray-400">Led by world-class consultants and industry veterans.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center uppercase tracking-tighter italic">
+                <div class="group"><div class="overflow-hidden rounded-3xl mb-6 shadow-xl"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600" class="group-hover:scale-110 grayscale group-hover:grayscale-0 transition duration-500"></div><h4 class="text-lg font-black dark:text-white">Robert Fox</h4><p class="text-[10px] font-bold text-brandTeal tracking-widest">Managing Partner</p></div>
+                <div class="group"><div class="overflow-hidden rounded-3xl mb-6 shadow-xl"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=600" class="group-hover:scale-110 grayscale group-hover:grayscale-0 transition duration-500"></div><h4 class="text-lg font-black dark:text-white">Jane Cooper</h4><p class="text-[10px] font-bold text-brandTeal tracking-widest">Global Strategist</p></div>
+                <div class="group"><div class="overflow-hidden rounded-3xl mb-6 shadow-xl"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600" class="group-hover:scale-110 grayscale group-hover:grayscale-0 transition duration-500"></div><h4 class="text-lg font-black dark:text-white">Guy Hawkins</h4><p class="text-[10px] font-bold text-brandTeal tracking-widest">Risk Consultant</p></div>
+                <div class="group"><div class="overflow-hidden rounded-3xl mb-6 shadow-xl"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600" class="group-hover:scale-110 grayscale group-hover:grayscale-0 transition duration-500"></div><h4 class="text-lg font-black dark:text-white">Cody Fisher</h4><p class="text-[10px] font-bold text-brandTeal tracking-widest">Tech Director</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. TESTIMONIALS -->
+    <section class="py-32 bg-white dark:bg-gray-950 border-y dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 dark:bg-gray-900 p-10 rounded-3xl italic text-lg leading-relaxed shadow-sm">
+                    "Indicorp didn't just give us a report; they redefined our approach to the Asian market."
+                    <div class="mt-8 not-italic flex items-center gap-4"><div class="w-12 h-12 bg-brandTeal rounded-full"></div><div><h4 class="font-bold uppercase dark:text-white text-sm">Alex Rivera</h4><p class="text-[10px] font-black text-brandGray uppercase">CEO, Hooli</p></div></div>
+                </div>
+                <div class="bg-brandOrange p-10 rounded-3xl text-white italic text-lg leading-relaxed shadow-2xl scale-105">
+                    "The most precise market forecasting we have ever encountered. Our secret weapon for acquisitions."
+                    <div class="mt-8 not-italic flex items-center gap-4"><div class="w-12 h-12 bg-white/20 rounded-full"></div><div><h4 class="font-bold uppercase text-sm">Sarah Chen</h4><p class="text-[10px] font-black opacity-80 uppercase">VP, Stripe</p></div></div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-900 p-10 rounded-3xl italic text-lg leading-relaxed shadow-sm">
+                    "Scaling a global team is a nightmare without the right framework. Indicorp provided the blueprint."
+                    <div class="mt-8 not-italic flex items-center gap-4"><div class="w-12 h-12 bg-brandNavy rounded-full"></div><div><h4 class="font-bold uppercase dark:text-white text-sm">Marcus Thorne</h4><p class="text-[10px] font-black text-brandGray uppercase">Director, Lyft</p></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. LATEST NEWS (BLOG) -->
+    <section id="blog" class="py-32 bg-[#FAFAFA] dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl font-black mb-4 dark:text-white uppercase tracking-tighter">Strategic News</h2>
+                <p class="text-brandGray dark:text-gray-400 uppercase font-black text-[10px] tracking-[0.4em]">Insights from the research desk</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden rounded-2xl mb-6 shadow-lg"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=600" class="group-hover:scale-105 transition duration-500"></div>
+                    <span class="text-[10px] font-black uppercase text-brandOrange tracking-widest italic">12 Oct 2026</span>
+                    <h4 class="text-2xl font-black mt-3 dark:text-white uppercase group-hover:text-brandTeal transition-colors leading-tight italic">Quantum computing in logistics</h4>
+                </div>
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden rounded-2xl mb-6 shadow-lg"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600" class="group-hover:scale-105 transition duration-500"></div>
+                    <span class="text-[10px] font-black uppercase text-brandOrange tracking-widest italic">05 Oct 2026</span>
+                    <h4 class="text-2xl font-black mt-3 dark:text-white uppercase group-hover:text-brandTeal transition-colors leading-tight italic">Market volatility protocols</h4>
+                </div>
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden rounded-2xl mb-6 shadow-lg"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600" class="group-hover:scale-105 transition duration-500"></div>
+                    <span class="text-[10px] font-black uppercase text-brandOrange tracking-widest italic">28 Sep 2026</span>
+                    <h4 class="text-2xl font-black mt-3 dark:text-white uppercase group-hover:text-brandTeal transition-colors leading-tight italic">Sustainable scaling methods</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. FAQ SECTION -->
+    <section class="py-32 bg-white dark:bg-gray-950">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-4xl font-black text-center mb-16 dark:text-white uppercase italic tracking-tighter">Common Questions</h2>
+            <div class="space-y-4">
+                <div class="faq-item bg-gray-50 dark:bg-gray-900 p-8 rounded-2xl shadow-sm cursor-pointer dark:border dark:border-gray-800" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center font-bold dark:text-white uppercase tracking-widest text-xs"><span>How long is the initial consultation?</span><svg class="w-5 h-5 faq-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></div>
+                    <div class="faq-content text-brandGray dark:text-gray-400 text-sm mt-4 leading-relaxed">Typically 60-90 minutes. We perform a deep-dive audit into your current strategy before proposing the Indicorp framework.</div>
+                </div>
+                <div class="faq-item bg-gray-50 dark:bg-gray-900 p-8 rounded-2xl shadow-sm cursor-pointer dark:border dark:border-gray-800" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center font-bold dark:text-white uppercase tracking-widest text-xs"><span>Do you offer global coverage?</span><svg class="w-5 h-5 faq-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></div>
+                    <div class="faq-content text-brandGray dark:text-gray-400 text-sm mt-4 leading-relaxed">Yes. We have active partners in 45 countries with dedicated local strategy teams for localized market entry.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. PRICING -->
+    <section id="pricing" class="py-32 bg-gray-50 dark:bg-gray-900 border-y dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-black mb-20 dark:text-white uppercase tracking-tighter italic">Access Strategy</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
+                <div class="p-12 border dark:border-gray-700 bg-white dark:bg-gray-800 rounded-3xl"><h4 class="font-bold mb-4 uppercase text-xs">Starter</h4><div class="text-5xl font-black mb-8 text-brandTeal">$0</div><button class="w-full py-4 bg-brandNavy dark:bg-gray-700 text-white rounded-xl font-bold uppercase text-[10px] tracking-widest">Select</button></div>
+                <div class="p-16 bg-brandNavy text-white rounded-[3rem] shadow-2xl scale-110 border-8 border-brandOrange relative z-10"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-brandOrange px-8 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">Corporate Standard</div><h4 class="font-bold mb-4 uppercase text-xs">Business</h4><div class="text-6xl font-black mb-8 text-brandOrange">$99</div><button class="w-full py-5 bg-brandOrange text-white rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-orange-500 transition-colors">Select</button></div>
+                <div class="p-12 border dark:border-gray-700 bg-white dark:bg-gray-800 rounded-3xl"><h4 class="font-bold mb-4 uppercase text-xs">Elite</h4><div class="text-5xl font-black mb-8 text-brandTeal">$299</div><button class="w-full py-4 bg-brandNavy dark:bg-gray-700 text-white rounded-xl font-bold uppercase text-[10px] tracking-widest">Select</button></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. HIGH-IMPACT FINAL CTA -->
+    <section class="py-40 bg-brandNavy dark:bg-black text-center text-white px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-6xl md:text-8xl font-black uppercase mb-10 leading-[0.9] tracking-tighter italic">Ready to scale <br> <span class="text-brandOrange underline not-italic">infinitely?</span></h2>
+            <p class="text-xl opacity-60 mb-12 max-w-xl mx-auto font-medium">Don't wait for market shifts to find you. Create the market with Indicorp global strategy.</p>
+            <a href="#contact" class="px-16 py-7 bg-brandTeal text-white font-black rounded-full shadow-2xl hover:scale-105 transition-transform uppercase tracking-[0.3em] text-[10px] inline-block italic">Consult Our HQ</a>
+        </div>
+    </section>
+
+    <!-- 13. CONTACT SECTION -->
+    <section id="contact" class="py-32 bg-white dark:bg-gray-950">
+        <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-0 rounded-3xl overflow-hidden border dark:border-gray-800 shadow-xl">
+            <div class="bg-white dark:bg-gray-900 p-12 flex flex-col items-center text-center"><div class="text-brandTeal mb-6"><svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div><div class="font-bold text-xs uppercase tracking-widest dark:text-gray-300">hq@indicorp.com <br> +1 (480) 555-0103</div></div>
+            <div class="bg-brandNavy text-white p-12 lg:py-20 z-10 flex flex-col items-center text-center shadow-2xl"><div class="text-brandTeal mb-6"><svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div class="font-bold text-xs uppercase tracking-widest italic">4517 Washington Ave. <br> Manchester, KY 39495</div></div>
+            <div class="bg-white dark:bg-gray-900 p-12 flex flex-col items-center text-center"><div class="text-brandTeal mb-6"><svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div><div class="font-bold text-xs uppercase tracking-widest dark:text-gray-300">careers@indicorp.com <br> press@indicorp.com</div></div>
+        </div>
+    </section>
+
+    <!-- 14. FOOTER -->
+    <footer class="bg-white dark:bg-gray-950 text-brandNavy dark:text-white py-24 transition-colors">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mb-20 border-b border-gray-100 dark:border-gray-800 pb-20">
+            <div class="lg:col-span-2"><div class="text-2xl font-black mb-8 tracking-tighter uppercase italic">Indicorp<span class="text-brandOrange not-italic">.</span></div><p class="text-brandGray dark:text-gray-400 max-w-sm leading-relaxed text-sm">Transforming corporate strategy through precision market auditing and scalable implementation.</p></div>
+            <div><h5 class="font-black text-[10px] uppercase tracking-widest mb-8 text-brandTeal">Company</h5><ul class="space-y-4 text-[10px] font-bold text-brandGray"><li><a href="#" class="hover:text-brandOrange">About Us</a></li><li><a href="#" class="hover:text-brandOrange">Careers</a></li></ul></div>
+            <div><h5 class="font-black text-[10px] uppercase tracking-widest mb-8 text-brandTeal">Legal</h5><ul class="space-y-4 text-[10px] font-bold text-brandGray"><li><a href="#" class="hover:text-brandOrange">Privacy</a></li><li><a href="#" class="hover:text-brandOrange">Terms</a></li></ul></div>
+            <div><h5 class="font-black text-[10px] uppercase tracking-widest mb-8 text-brandTeal">Connect</h5><ul class="space-y-4 text-[10px] font-bold text-brandGray"><li>Twitter</li><li>LinkedIn</li></ul></div>
+        </div>
+        <div class="text-center text-[10px] font-black text-brandGray uppercase tracking-[0.4em]">© 2026 Indicorp International Strategic Group</div>
+    </footer>
+
+    <!-- VIDEO MODAL OVERLAY -->
+    <div id="video-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center bg-black/95 p-6 backdrop-blur-sm">
+        <button id="close-modal" class="absolute top-8 right-8 text-white hover:text-brandOrange transition-colors"><svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <div class="w-full max-w-6xl aspect-video rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-black"><iframe id="video-iframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const nav = document.getElementById('main-nav');
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Dark/Light Mode Initial Sync
+        function updateIcons() {
+            if (document.documentElement.classList.contains('dark')) {
+                lightIcon.classList.remove('hidden'); darkIcon.classList.add('hidden');
+            } else {
+                darkIcon.classList.remove('hidden'); lightIcon.classList.add('hidden');
+            }
+        }
+        updateIcons();
+
+        // Theme Toggle Logic
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('color-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            updateIcons();
+        });
+
+        // Responsive Menu Logic
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // Navbar Scroll Styling Logic
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.replace('py-5', 'py-3'); nav.classList.add('shadow-2xl');
+            } else {
+                nav.classList.replace('py-3', 'py-5'); nav.classList.remove('shadow-2xl');
+            }
+        });
+
+        // FAQ Accordion Logic
+        function toggleFaq(element) {
+            const isActive = element.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+            if (!isActive) element.classList.add('active');
+        }
+
+        // Video Modal Player Logic
+        const videoTrigger = document.getElementById('video-trigger');
+        const videoModal = document.getElementById('video-modal');
+        const closeModal = document.getElementById('close-modal');
+        const videoIframe = document.getElementById('video-iframe');
+        const ytUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1";
+
+        videoTrigger?.addEventListener('click', () => {
+            videoIframe.src = ytUrl;
+            videoModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        });
+
+        const hideModal = () => {
+            videoModal.classList.add('hidden');
+            videoIframe.src = ""; 
+            document.body.style.overflow = 'auto';
+        };
+
+        closeModal.addEventListener('click', hideModal);
+        videoModal.addEventListener('click', (e) => { if (e.target === videoModal) hideModal(); });
+    </script>
+</body>
+</html>
