@@ -351,13 +351,17 @@
             }
         });
 
-        // FORCE SCROLL TO TOP ON LOAD
-        window.onbeforeunload = function () {
-            window.scrollTo(0, 0);
-        };
+        // STRICT START-AT-TOP LOGIC
+        // This runs immediately as soon as the page is ready
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
+        window.scrollTo(0, 0);
+
+        // This ensures even after assets load, we stay at the top
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+        });
 
         // FAQ Accordion Logic
         function toggleFaq(element) {
